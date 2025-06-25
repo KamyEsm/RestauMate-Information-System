@@ -9,4 +9,5 @@ public interface IManager {
     public void Update(String Row,String Row1);
     public void Update(int Row,String Row1);
     public void Insert(int S,String Row1);
+    public String NSearch(String N);
 }

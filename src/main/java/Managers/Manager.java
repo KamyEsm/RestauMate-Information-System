@@ -13,6 +13,10 @@ public class Manager implements IManager {
         fileManager = new TxTFileManager(fileName);
         fileManager.CreatFile();
     }
+    @Override
+    public String NSearch(String N){
+        return fileManager.NSearch(N);
+    }
 
     @Override
     public void Append(String... Rows) {

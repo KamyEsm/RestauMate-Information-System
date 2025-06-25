@@ -103,6 +103,16 @@ public class TxTFileManager implements IManager {
         RowsCount--;
         ArrayToFile();
     }
+    @Override
+    public String NSearch(String N){
+        FileToArray();
+        for (int i = 0; i < RowsCount; i++){
+            if(Rows[i].indexOf(N)==-1){
+                return Rows[i];
+            }
+        }
+        return null;
+    }
 
     @Override
     public String Search(String Row) {
