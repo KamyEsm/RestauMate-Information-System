@@ -15,8 +15,10 @@ public class TxTFileManager implements IManager {
     public TxTFileManager(String fileName) {
         this.fileName = fileName;
         try {
-            this.file = new File(fileName);
-            this.fw = new FileWriter(this.file, false);
+            if (this.file.exists()) {
+                this.file = new File(fileName);
+                this.fw = new FileWriter(this.file, false);
+            }
         }
         catch (Exception e) {
             System.err.println(e.getMessage());
@@ -107,7 +109,7 @@ public class TxTFileManager implements IManager {
     public String NSearch(String N){
         FileToArray();
         for (int i = 0; i < RowsCount; i++){
-            if(Rows[i].indexOf(N)==-1){
+            if(Rows[i].indexOf(N)!=-1){
                 return Rows[i];
             }
         }
