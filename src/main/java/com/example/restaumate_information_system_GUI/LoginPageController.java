@@ -38,7 +38,7 @@ public class LoginPageController {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-        HelloApplication.getPrimaryStage().setScene(WelcomeScene);
+        StartApplication.getPrimaryStage().setScene(WelcomeScene);
 
 
 
