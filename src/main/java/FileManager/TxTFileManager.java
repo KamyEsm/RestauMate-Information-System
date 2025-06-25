@@ -1,10 +1,12 @@
 package FileManager;
 
+import Interface.IManager;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
 
-public class TxTFileManager implements ITxTFileManager{
+public class TxTFileManager implements IManager {
     private String fileName;
     private File file;
     private String[] Rows;
@@ -23,7 +25,6 @@ public class TxTFileManager implements ITxTFileManager{
         this.RowsCount=0;
     }
 
-    @Override
     public void CreatFile() {
         if(file.exists()) {
             try {
@@ -36,7 +37,6 @@ public class TxTFileManager implements ITxTFileManager{
         }
     }
 
-    @Override
     public void CloseFile() {
         try
         {
@@ -47,13 +47,11 @@ public class TxTFileManager implements ITxTFileManager{
         }
     }
 
-    @Override
     public void DeleteFile() {
         file.delete();
     }
 
 
-    @Override
     public void ClearFile(){
         try {
             file.delete();
@@ -68,7 +66,7 @@ public class TxTFileManager implements ITxTFileManager{
 
 
     @Override
-    public void AppendRow(String... Rows) {
+    public void Append(String... Rows) {
         String[] A=Rows;
         try {
             for (int i = 0; i < A.length; i++){
@@ -82,7 +80,7 @@ public class TxTFileManager implements ITxTFileManager{
      }
 
     @Override
-    public void DeleteRow(String Row) {
+    public void Delete(String Row) {
         FileToArray();
         for (int i = 0; i < RowsCount; i++){
             if(Row.equals(Rows[i])){
@@ -97,7 +95,7 @@ public class TxTFileManager implements ITxTFileManager{
     }
 
     @Override
-    public void DeleteRow(int Row) {
+    public void Delete(int Row) {
         FileToArray();
         for (int i = Row; i <= RowsCount; i++){
             Rows[i]=Rows[i+1];
@@ -107,7 +105,7 @@ public class TxTFileManager implements ITxTFileManager{
     }
 
     @Override
-    public String SearchRow(String Row) {
+    public String Search(String Row) {
         FileToArray();
         for (int i = 0; i < RowsCount; i++){
             if(Row.equals(Rows[i])){
@@ -118,7 +116,7 @@ public class TxTFileManager implements ITxTFileManager{
     }
 
     @Override
-    public String SearchRow(int Row, String Row1) {
+    public String Search(int Row, String Row1) {
         FileToArray();
         for (int i = Row; i < RowsCount; i++){
             if(Row1.equals(Rows[i])){
@@ -129,7 +127,7 @@ public class TxTFileManager implements ITxTFileManager{
     }
 
     @Override
-    public void UpdateRow(String Row, String Row1) {
+    public void Update(String Row, String Row1) {
         FileToArray();
         int C=0;
         for (int i = 0; i < RowsCount; i++){
@@ -142,14 +140,14 @@ public class TxTFileManager implements ITxTFileManager{
     }
 
     @Override
-    public void UpdateRow(int Row, String Row1) {
+    public void Update(int Row, String Row1) {
         FileToArray();
         Rows[Row]=Row1;
         ArrayToFile();
     }
 
     @Override
-    public void InsertRow(int S, String Row1) {
+    public void Insert(int S, String Row1) {
         FileToArray();
         for (int i = RowsCount-1; i >= S; i--){
             Rows[i+1]=Rows[i];
