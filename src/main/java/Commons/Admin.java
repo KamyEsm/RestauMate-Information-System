@@ -1,5 +1,7 @@
 package Commons;
 
+import Splitter.Splitter;
+
 public class Admin extends Member {
     private boolean Owner;
     private String Password;
@@ -26,4 +28,9 @@ public class Admin extends Member {
         this.Password = Password;
         return true;
     }
+    @Override
+    public String toString() {
+        return super.toString() + Splitter.SEPARATOR + Owner + Splitter.SEPARATOR + Password;
+    }
+
 }
