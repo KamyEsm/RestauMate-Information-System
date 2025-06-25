@@ -4,6 +4,7 @@ import Interface.IManager;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class TxTFileManager implements IManager {
@@ -14,35 +15,42 @@ public class TxTFileManager implements IManager {
     FileWriter fw;
     public TxTFileManager(String fileName) {
         this.fileName = fileName;
-        try {
-            if (this.file.exists()) {
-                this.file = new File(fileName);
-                this.fw = new FileWriter(this.file, false);
-            }
-        }
-        catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
         this.Rows=new String[100000];
         this.RowsCount=0;
     }
 
     public void CreatFile() {
-        if(file.exists()) {
+        if(file == null || !file.exists()) {
             try {
-                fw = new FileWriter(file);
-                fw.flush();
+                this.file = new File(fileName);
+                file.createNewFile();
             }
             catch (Exception e) {
-                System.err.println(e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
     }
 
-    public void CloseFile() {
+
+    public void OpenWriter(boolean append) {
+            try {
+                if(fw != null) {
+                    fw.close();
+                    fw = null;
+                }
+                fw = new FileWriter(this.file, append);
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+
+    public void CloseWriter() {
         try
         {
             fw.close();
+            fw = null;
         }
         catch (Exception e) {
             System.err.println(e.getMessage());
@@ -55,30 +63,31 @@ public class TxTFileManager implements IManager {
 
 
     public void ClearFile(){
+        CloseWriter();
         try {
-            file.delete();
-            File file1 = new File(fileName);
-            file = file1;
-            fw = new FileWriter(file);
-        }
-        catch (Exception e) {
-            System.err.println(e.getMessage());
+            if (file.delete()) {
+                file.createNewFile();
+                OpenWriter(false);
+                CloseWriter();
+            }
+        } catch (IOException e) {
+            System.err.println("Error clearing file: " + e.getMessage());
         }
     }
 
 
     @Override
     public void Append(String... Rows) {
-        String[] A=Rows;
+        OpenWriter(true);
         try {
-            for (int i = 0; i < A.length; i++){
-                fw.append(A[i]+"\n");
-                fw.flush();
+            for (String row : Rows) {
+                fw.append(row).append("\n");
             }
+            fw.flush();
+        } catch (IOException e) {
+            System.err.println("Error appending rows: " + e.getMessage());
         }
-        catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
+        CloseWriter();
     }
 
     @Override
@@ -170,19 +179,21 @@ public class TxTFileManager implements IManager {
     //--------------------------------------------------------------->>>Other
 
     private void ArrayToFile(){
+        OpenWriter(false);
         try {
-            ClearFile();
-            for (int i = 0; i < RowsCount; i++){
-                fw.append(Rows[i]+"\n");
+            for (int i = 0; i < RowsCount; i++) {
+                if (Rows[i] != null) {
+                    fw.write(Rows[i] + "\n");
+                }
             }
             fw.flush();
+        } catch (IOException e) {
+            System.err.println("Error writing array to file: " + e.getMessage());
         }
-        catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-
-
+        CloseWriter();
     }
+
+
     private void FileToArray(){
         for (int i = 0; i < RowsCount; i++){
             Rows[i]=null;
@@ -200,11 +211,14 @@ public class TxTFileManager implements IManager {
     }
 
 
-    private String[] GetRows(){
+    public String[] GetRows(){
         return Rows;
     }
-    private int GetRowsCount(){
+    public int GetRowsCount(){
         return RowsCount;
+    }
+    public File GetFile(){
+        return this.file;
     }
 
 }
