@@ -11,6 +11,6 @@ module com.example.restaumate_information_system {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
-    opens com.example.restaumate_information_system to javafx.fxml;
-    exports com.example.restaumate_information_system;
+    opens com.example.restaumate_information_system_GUI to javafx.fxml;
+    exports com.example.restaumate_information_system_GUI;
 }
