@@ -1,5 +1,7 @@
 package Commons;
 
+import Splitter.Splitter;
+
 import java.util.Random;
 
 public class Member {
@@ -91,6 +93,11 @@ public class Member {
     }
     public Gender getGender() {
         return gender;
+    }
+    @Override
+    public String toString() {
+        return ID + Splitter.SEPARATOR + Name + Splitter.SEPARATOR + LastName + Splitter.SEPARATOR + Age
+                + Splitter.SEPARATOR + NationalCode + Splitter.SEPARATOR + gender;
     }
 
 
