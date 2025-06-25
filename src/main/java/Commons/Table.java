@@ -4,16 +4,21 @@ public class Table {
     private Table_Size Size;
     private int TableNumber;
 
-    public Table_Size getSize() {
+    public Table(int TableNumber, Table_Size Size) {
+        this.SetTableNumber(TableNumber);
+        this.SetSize(Size);
+    }
+
+    public Table_Size GetSize() {
         return this.Size;
     }
-    public int getTableNumber() {
+    public int GetTableNumber() {
         return this.TableNumber;
     }
-    public void setSize(Table_Size Size) {
+    public void SetSize(Table_Size Size) {
         this.Size = Size;
     }
-    public void setTableNumber(int TableNumber) {
+    public void SetTableNumber(int TableNumber) {
             this.TableNumber = TableNumber;
     }
 }

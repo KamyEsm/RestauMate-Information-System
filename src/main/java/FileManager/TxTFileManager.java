@@ -77,7 +77,7 @@ public class TxTFileManager implements IManager {
         catch (Exception e) {
             System.err.println(e.getMessage());
         }
-     }
+    }
 
     @Override
     public void Delete(String Row) {
