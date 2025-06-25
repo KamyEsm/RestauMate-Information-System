@@ -12,7 +12,14 @@ public class Member {
     private String NationalCode;
     private Gender gender;
     public Member() {}
-    public Member(int ID, String Name, String LastName, int Age, String NationalCode, Gender gender) {}
+    public Member(int ID, String Name, String LastName, int Age, String NationalCode, Gender gender) {
+        this.SetAge(Age);
+        this.SetNationalCode(NationalCode);
+        this.SetGender(gender);
+        this.SetName(Name);
+        this.SetLastName(LastName);
+        this.SetID(ID);
+    }
     public boolean SetID(int ID) {
         if(ID >= 0 && ID<10000) {
             this.ID = ID;
@@ -99,10 +106,5 @@ public class Member {
         return ID + Splitter.SEPARATOR + Name + Splitter.SEPARATOR + LastName + Splitter.SEPARATOR + Age
                 + Splitter.SEPARATOR + NationalCode + Splitter.SEPARATOR + gender;
     }
-
-
-
-
-
 
 }
