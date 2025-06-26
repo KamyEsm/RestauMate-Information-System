@@ -16,8 +16,10 @@ public class WelcomePageController implements Initializable {
     @FXML
     private Label WelcomeError;
     public void AdminManager(ActionEvent actionEvent) {
-        if(!LoginPageController.GetOwner())
+        if(!LoginPageController.GetOwner()) {
+            WelcomeError.setText("You are not Owner");
             return;
+        }
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/restaumate_information_system/AdminPage.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
