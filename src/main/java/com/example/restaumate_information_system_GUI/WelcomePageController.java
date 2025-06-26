@@ -1,9 +1,11 @@
 package com.example.restaumate_information_system_GUI;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -11,7 +13,11 @@ import java.util.ResourceBundle;
 
 public class WelcomePageController implements Initializable {
     private Stage stage;
+    @FXML
+    private Label WelcomeError;
     public void AdminManager(ActionEvent actionEvent) {
+        if(!LoginPageController.GetOwner())
+            return;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/restaumate_information_system/AdminPage.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
