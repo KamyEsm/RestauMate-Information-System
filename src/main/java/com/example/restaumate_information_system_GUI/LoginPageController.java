@@ -17,9 +17,9 @@ public class LoginPageController {
     private TextField LoginPass;
     @FXML
     private Label LoginError;
-    Manager manager = new Manager("AdminList");
-    Scene WelcomeScene;
-
+    private Manager manager = new Manager("AdminList");
+    private Scene WelcomeScene;
+    private boolean Owner;
     public void Login(ActionEvent actionEvent) {
         String NCode = LoginNCode.getText();
         String Pass = LoginPass.getText();
@@ -28,6 +28,10 @@ public class LoginPageController {
             LoginError.setText("N Error");
             return;
         }
+        if(search.indexOf("true")!=-1)
+            Owner = true;
+        else
+            Owner = false;
         String search2 = manager.NSearch(Pass);
         if(search2.equals(null)) {
             LoginError.setText("Pass Error");
@@ -40,8 +44,8 @@ public class LoginPageController {
         }
         StartApplication.getPrimaryStage().setScene(WelcomeScene);
 
-
-
-
+    }
+    public boolean GetOwner() {
+        return Owner;
     }
 }
