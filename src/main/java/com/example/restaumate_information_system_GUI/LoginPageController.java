@@ -19,7 +19,7 @@ public class LoginPageController {
     private Label LoginError;
     private Manager manager = new Manager("AdminList");
     private Scene WelcomeScene;
-    private boolean Owner;
+    private static boolean Owner;
     public void Login(ActionEvent actionEvent) {
         String NCode = LoginNCode.getText();
         String Pass = LoginPass.getText();
@@ -45,7 +45,7 @@ public class LoginPageController {
         StartApplication.getPrimaryStage().setScene(WelcomeScene);
 
     }
-    public boolean GetOwner() {
+    public static boolean GetOwner() {
         return Owner;
     }
 }
